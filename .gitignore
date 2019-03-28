@@ -1,3 +1,5 @@
 *.hi
 *.o
 *.run
+*.txt
+a.out
