@@ -3,43 +3,29 @@
 using namespace std;
 
 int main(){
-  int c, candies, i, aux;
-  map<int, int> line;
-  queue<int> q_line;
+  queue< pair<int, int> > line;
+  pair<int , int> aux_line;
+  int i, n, candies, aux;
 
-  cin >> c >> candies;
+  cin >> n >> candies;
 
-  for(i = 1; i <= c; i++){
+  for(i = 1; i <= n; i++){
     cin >> aux;
-    line[i] = aux;
-    q_line.push(i);
+    line.push(make_pair(i, aux));
   }
 
-  i = 1;
-  while(q_line.size() > 1){
-
-    if(line[i] - candies <= 0){
-      q_line.pop();
-      line[i] = 101;
-    }else if(line[i] == 101){
-      if(i == c)
-        i = 0;
-
-      i++;
-      continue;
+  while(line.size() > 1){
+    if(line.front().second <= candies){
+      line.pop();
+    }else{
+      aux_line = make_pair(line.front().first, line.front().second - candies);
+      line.pop();
+      line.push(aux_line);
     }
-    else{
-      line[i] -= candies;
-      q_line.push(q_line.front());
-      q_line.pop();
-    }
-
-    if(i == c)
-      i = 0;
-
-    i++;
   }
 
-  cout << q_line.front() << endl;
+  cout << line.front().first << endl;
+
+
   return 0;
 }
