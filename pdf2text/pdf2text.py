@@ -164,7 +164,7 @@ menu_days = {
 is_title = []
 _is_title = {}
 menu_index = {}
-
+t = []
 for element in menu.keys():
     for e in menu[element].keys():
         for i in range(0, len(menu[element][e])):
@@ -175,9 +175,23 @@ for element in menu.keys():
                and menu[element][e][i-1] != "de" \
                and menu[element][e][i-1] != 'e':
                 is_title.append(i)
+                t.append(menu[element][e][i])
         _is_title[e] = is_title
         is_title = []
+        print(t)
+        t = []
     menu_index[element] = _is_title
     _is_title = {}
+# print(menu_index)
 
-print(menu_index)
+for e in menu_index.keys():
+    for key in menu_index[e].keys():
+        for food in menu_index[e].values():
+            # [0, 1, 2, 7, 10, 14, 17]
+            x = menu[e][key][food[0]:food[1]]
+            # a = a + 1
+            # print(x)
+            # print(food[0])
+            # print(food[1])
+        break
+    break
