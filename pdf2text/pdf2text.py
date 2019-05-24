@@ -112,7 +112,7 @@ for x in it:
         if foods[x] != "Prato":
             menu["ALMOÇO"][key].append(foods[x])
 
-it = iter(range(id_jantar, id_end-1))
+it = iter(range(id_jantar, id_end))
 for x in it:
     if foods[x] in keys_jantar:
         if foods[x] == "Principal:" or foods[x] == "Vegetariano:":
@@ -161,17 +161,23 @@ menu_days = {
     }
 }
 
-days_counter = 0
 is_title = []
 _is_title = {}
+menu_index = {}
 
-for element in menu["DESJEJUM"].keys():
-    for i in range(0, len(menu["DESJEJUM"][element])):
-        if menu["DESJEJUM"][element][i-1] != '/' \
-           and menu["DESJEJUM"][element][i].istitle() \
-           and menu["DESJEJUM"][element][i][0] != '/' \
-           and menu["DESJEJUM"][element][i-1] != 'e':
-            is_title.append(i)
+for element in menu.keys():
+    for e in menu[element].keys():
+        for i in range(0, len(menu[element][e])):
+            if menu[element][e][i].istitle() \
+               and menu[element][e][i-1] != '/' \
+               and menu[element][e][i][0] != '/' \
+               and menu[element][e][i-1] != 'à' \
+               and menu[element][e][i-1] != "de" \
+               and menu[element][e][i-1] != 'e':
+                is_title.append(i)
+        _is_title[e] = is_title
+        is_title = []
+    menu_index[element] = _is_title
+    _is_title = {}
 
-    _is_title[element] = is_title
-    is_title = []
+print(menu_index)
