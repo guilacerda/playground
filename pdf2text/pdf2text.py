@@ -22,6 +22,7 @@ id_jantar = foods.index("JANTAR") + 8
 id_end = foods.index("Legenda:")
 
 menu = {}
+
 menu["DESJEJUM"] = {
     "Bebidas quentes": [],
     "Vegetariano 1": [],
@@ -68,6 +69,7 @@ keys_jantar = ["Salada:", "Molho:", "Principal:", "Sopa:", "Pão:",
 key = ""
 counter_v = 1
 counter_pao = 1
+counter_achocolatado = 1
 counter_c = 1
 it = iter(range(id_desjejum, id_almoco-8))
 
@@ -86,6 +88,12 @@ for x in it:
             if counter_pao == 1:
                 key = foods[x]
                 counter_pao = counter_pao - 1
+            else:
+                menu["DESJEJUM"][key].append(foods[x])
+        elif foods[x] == "Achocolatado":
+            if counter_achocolatado == 1:
+                key = foods[x]
+                counter_achocolatado = counter_achocolatado - 1
             else:
                 menu["DESJEJUM"][key].append(foods[x])
         else:
@@ -115,4 +123,55 @@ for x in it:
         if foods[x] != "Prato":
             menu["JANTAR"][key].append(foods[x])
 
-print(menu["JANTAR"])
+menu_days = {
+    "Segunda-feira": {
+        "DESJEJUM": {},
+        "ALMOÇO": {},
+        "JANTAR": {}
+    },
+    "Terça-feira": {
+        "DESJEJUM": {},
+        "ALMOÇO": {},
+        "JANTAR": {}
+    },
+    "Quarta-feira": {
+        "DESJEJUM": {},
+        "ALMOÇO": {},
+        "JANTAR": {}
+    },
+    "Quinta-feira": {
+        "DESJEJUM": {},
+        "ALMOÇO": {},
+        "JANTAR": {}
+    },
+    "Sexta-feira": {
+        "DESJEJUM": {},
+        "ALMOÇO": {},
+        "JANTAR": {}
+    },
+    "Sábado": {
+        "DESJEJUM": {},
+        "ALMOÇO": {},
+        "JANTAR": {}
+    },
+    "Domingo": {
+        "DESJEJUM": {},
+        "ALMOÇO": {},
+        "JANTAR": {}
+    }
+}
+
+days_counter = 0
+is_title = []
+_is_title = []
+
+for element in menu["DESJEJUM"]:
+    for i in range(0, len(menu["DESJEJUM"][element])-1):
+        if menu["DESJEJUM"][element][i].istitle():
+            is_title.append(i)
+            print(i)
+            print(menu["DESJEJUM"][element][i])
+
+    _is_title.append(is_title)
+    is_title = []
+print(menu["DESJEJUM"]["Bebidas quentes"][_is_title[0][0]])
