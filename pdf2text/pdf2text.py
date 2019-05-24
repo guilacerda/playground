@@ -163,15 +163,15 @@ menu_days = {
 
 days_counter = 0
 is_title = []
-_is_title = []
+_is_title = {}
 
-for element in menu["DESJEJUM"]:
-    for i in range(0, len(menu["DESJEJUM"][element])-1):
-        if menu["DESJEJUM"][element][i].istitle():
+for element in menu["DESJEJUM"].keys():
+    for i in range(0, len(menu["DESJEJUM"][element])):
+        if menu["DESJEJUM"][element][i-1] != '/' \
+           and menu["DESJEJUM"][element][i].istitle() \
+           and menu["DESJEJUM"][element][i][0] != '/' \
+           and menu["DESJEJUM"][element][i-1] != 'e':
             is_title.append(i)
-            print(i)
-            print(menu["DESJEJUM"][element][i])
 
-    _is_title.append(is_title)
+    _is_title[element] = is_title
     is_title = []
-print(menu["DESJEJUM"]["Bebidas quentes"][_is_title[0][0]])
