@@ -164,7 +164,7 @@ menu_days = {
 is_title = []
 _is_title = {}
 menu_index = {}
-t = []
+
 for element in menu.keys():
     for e in menu[element].keys():
         for i in range(0, len(menu[element][e])):
@@ -175,23 +175,41 @@ for element in menu.keys():
                and menu[element][e][i-1] != "de" \
                and menu[element][e][i-1] != 'e':
                 is_title.append(i)
-                t.append(menu[element][e][i])
-        _is_title[e] = is_title
+        _is_title[e] = []
+        _is_title[e].append(is_title)
+        # print(menu[element][e])
+        _is_title[e].append(menu[element][e])
+        # print(_is_title[e])
         is_title = []
-        print(t)
-        t = []
+
     menu_index[element] = _is_title
     _is_title = {}
+
 # print(menu_index)
+days = ["Segunda-feira", "Terça-feira", "Quarta-feira",
+        "Quinta-feira", "Sexta-feira", "Sábado", "Domingo"]
 
 for e in menu_index.keys():
-    for key in menu_index[e].keys():
-        for food in menu_index[e].values():
-            # [0, 1, 2, 7, 10, 14, 17]
-            x = menu[e][key][food[0]:food[1]]
-            # a = a + 1
-            # print(x)
-            # print(food[0])
-            # print(food[1])
-        break
-    break
+    for key, food in zip(menu_index[e].keys(), menu_index[e].values()):
+        for i in range(0, len(food[0])):
+            if i+1 == len(food[0]):
+                food_words = food[1][food[0][i]:]
+            else:
+                food_words = food[1][food[0][i]:food[0][i+1]]
+
+            complete_word = ""
+            counter_words = 0
+            for word in food_words:
+                complete_word += word
+                if counter_words != len(food_words):
+                    complete_word += " "
+                counter_words += 1
+
+            menu_days[days[i]][e][key] = complete_word
+
+# print(menu_index)
+# import pprint
+# pp = pprint.PrettyPrinter(indent=4)
+# pp.pprint(menu_days)
+
+print(menu_days)
